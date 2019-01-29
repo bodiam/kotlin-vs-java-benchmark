@@ -1,9 +1,9 @@
 package com.athaydes.kotlin.part2;
 
-import org.openjdk.jmh.annotations.GenerateMicroBenchmark;
+import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
-import org.openjdk.jmh.logic.BlackHole;
+import org.openjdk.jmh.infra.Blackhole;
 
 /**
  * https://medium.com/@BladeCoder/exploring-kotlins-hidden-costs-part-2-324a4a50b70
@@ -17,38 +17,38 @@ public class KotlinBenchmarkPart2 {
         int[] intArray = new int[]{ 5, 0, 3, -1, -6, 7, -7, 4 };
     }
 
-    @GenerateMicroBenchmark
+    @Benchmark
     public int javaLocalFunction( TestState state ) {
         return JavaExamples.runJavaLocalFunction( state.a );
     }
 
-    @GenerateMicroBenchmark
+    @Benchmark
     public int kotlinLocalFunctionCapturingLocalVariable( TestState state ) {
         return Kotlin_sourcesKt.runLocalFunctionCapturingLocalVariable( state.a );
     }
 
-    @GenerateMicroBenchmark
+    @Benchmark
     public int kotlinLocalFunctionWithoutCapturingLocalVariable( TestState state ) {
         return Kotlin_sourcesKt.runLocalFunctionWithoutCapturingLocalVariable( state.a );
     }
 
-    @GenerateMicroBenchmark
-    public void javaSayHello( TestState state, BlackHole blackHole ) {
+    @Benchmark
+    public void javaSayHello( TestState state, Blackhole blackHole ) {
         JavaExamples.sayHello( state.who, blackHole );
     }
 
-    @GenerateMicroBenchmark
-    public void kotlinSayHello( TestState state, BlackHole blackHole ) {
+    @Benchmark
+    public void kotlinSayHello( TestState state, Blackhole blackHole ) {
         Kotlin_sourcesKt.sayHello( state.who, blackHole );
     }
 
-    @GenerateMicroBenchmark
-    public void javaIntVarargs( BlackHole blackHole, TestState state ) {
+    @Benchmark
+    public void javaIntVarargs(Blackhole blackHole, TestState state ) {
         JavaExamples.runPrintDouble( blackHole, state.intArray );
     }
 
-    @GenerateMicroBenchmark
-    public void kotlinIntVarargs( BlackHole blackHole, TestState state ) {
+    @Benchmark
+    public void kotlinIntVarargs( Blackhole blackHole, TestState state ) {
         Kotlin_sourcesKt.runPrintDouble( blackHole, state.intArray );
     }
 }

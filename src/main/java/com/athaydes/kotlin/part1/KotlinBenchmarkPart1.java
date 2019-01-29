@@ -1,7 +1,7 @@
 package com.athaydes.kotlin.part1;
 
 import com.athaydes.kotlin.Kotlin_sourcesKt;
-import org.openjdk.jmh.annotations.GenerateMicroBenchmark;
+import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 
@@ -13,31 +13,31 @@ public class KotlinBenchmarkPart1 {
 
     private Database db = new Database();
 
-    @GenerateMicroBenchmark
+    @Benchmark
     public void empty() {
     }
 
-    @GenerateMicroBenchmark
+    @Benchmark
     public int javaLambda() {
         return JavaExamples.runJavaLambda( db );
     }
 
-    @GenerateMicroBenchmark
+    @Benchmark
     public int kotlinLambda() {
         return Kotlin_sourcesKt.runKotlinLambda( db );
     }
 
-    @GenerateMicroBenchmark
+    @Benchmark
     public int kotlinInlinedFunction() {
         return Kotlin_sourcesKt.runKotlinInlinedFunction( db );
     }
 
-    @GenerateMicroBenchmark
+    @Benchmark
     public String kotlinPrivateConstructorCallFromCompanionObject() {
         return Kotlin_sourcesKt.runCompanionObjectCallToPrivateConstructor();
     }
 
-    @GenerateMicroBenchmark
+    @Benchmark
     public String javaPrivateConstructorCallFromStaticMethod() {
         return JavaExamples.runPrivateConstructorFromStaticMethod();
     }

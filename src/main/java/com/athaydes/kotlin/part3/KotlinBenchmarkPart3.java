@@ -1,9 +1,9 @@
 package com.athaydes.kotlin.part3;
 
-import org.openjdk.jmh.annotations.GenerateMicroBenchmark;
+import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
-import org.openjdk.jmh.logic.BlackHole;
+import org.openjdk.jmh.infra.Blackhole;
 
 import static java.util.Arrays.asList;
 
@@ -19,63 +19,68 @@ public class KotlinBenchmarkPart3 {
         SparseArray<String> sparseArray = new SparseArray<>( asList( "A", "B", "Hi", "ZZ", "FFF" ) );
     }
 
-    @GenerateMicroBenchmark
-    public void javaSimplyInitializedProperty( BlackHole blackHole ) {
+    @Benchmark
+    public void javaSimplyInitializedProperty( Blackhole blackHole ) {
         JavaExamples.runStringDelegateExample( blackHole );
     }
 
-    @GenerateMicroBenchmark
-    public void kotlinDelegateProperty( BlackHole blackHole ) {
+    @Benchmark
+    public void kotlinDelegateProperty( Blackhole blackHole ) {
         Kotlin_sourcesKt.runStringDelegateExample( blackHole );
     }
 
-    @GenerateMicroBenchmark
+    @Benchmark
     public boolean kotlinLocallyDeclaredRange( TestState testState ) {
         return Kotlin_sourcesKt.runIsInOneToTenWithLocalRange( testState.i );
     }
 
-    @GenerateMicroBenchmark
+    @Benchmark
     public boolean kotlinIndirectRange( TestState testState ) {
         return Kotlin_sourcesKt.runIsInOneToTenWithIndirectRange( testState.i );
     }
 
-    @GenerateMicroBenchmark
+    @Benchmark
     public boolean javaStringComparisons( TestState testState ) {
         return JavaExamples.isBetweenNames( testState.name );
     }
 
-    @GenerateMicroBenchmark
+    @Benchmark
     public boolean kotlinStringRangeInclusionWithLocalRange( TestState testState ) {
         return Kotlin_sourcesKt.isBetweenNamesWithLocalRange( testState.name );
     }
 
-    @GenerateMicroBenchmark
+    @Benchmark
     public boolean kotlinStringRangeInclusionWithConstantRange( TestState testState ) {
         return Kotlin_sourcesKt.isBetweenNamesWithConstantRange( testState.name );
     }
 
-    @GenerateMicroBenchmark
-    public void kotlinRangeForEachFunction( BlackHole blackHole ) {
+    @Benchmark
+    public void kotlinRangeForEachFunction( Blackhole blackHole ) {
         Kotlin_sourcesKt.rangeForEachMethod( blackHole );
     }
 
-    @GenerateMicroBenchmark
-    public void kotlinRangeForEachLoop( BlackHole blackHole ) {
+    @Benchmark
+    public void kotlinRangeForEachLoop( Blackhole blackHole ) {
         Kotlin_sourcesKt.rangeForEachLoop( blackHole );
     }
 
-    @GenerateMicroBenchmark
-    public void kotlinRangeForEachLoopWithStep1( BlackHole blackHole ) {
+    @Benchmark
+    public void kotlinRangeForEachLoopWithStep1( Blackhole blackHole ) {
         Kotlin_sourcesKt.rangeForEachLoopWithStep1( blackHole );
     }
 
-    @GenerateMicroBenchmark
-    public void kotlinCustomIndicesIteration( TestState testState, BlackHole blackHole ) {
+    @Benchmark
+    public void kotlinCustomIndicesIteration( TestState testState, Blackhole blackHole ) {
         Kotlin_sourcesKt.printValuesUsingIndices( testState.sparseArray, blackHole );
     }
 
-    @GenerateMicroBenchmark
-    public void kotlinIterationUsingLastIndexRange( TestState testState, BlackHole blackHole ) {
+    @Benchmark
+    public void kotlinUntilIteration( TestState testState, Blackhole blackHole ) {
+        Kotlin_sourcesKt.printValuesUsingUntil( testState.sparseArray, blackHole );
+    }
+
+    @Benchmark
+    public void kotlinIterationUsingLastIndexRange( TestState testState, Blackhole blackHole ) {
         Kotlin_sourcesKt.printValuesUsingLastIndexRange( testState.sparseArray, blackHole );
     }
 
